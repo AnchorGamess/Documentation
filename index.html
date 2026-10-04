@@ -107,6 +107,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; line-heig
 .facts b { color: var(--ink); font-variant-numeric: tabular-nums; }
 
 .prose { max-width: 70ch; }
+.block > .prose { max-width: none; }
 .prose p { margin: 0 0 0.8em; }
 .prose h2 { font-size: 1.5rem; font-weight: 750; font-stretch: 92%; margin: 0.4em 0 0.5em; }
 .prose h3 { font-size: 1.12rem; font-weight: 700; margin: 1.2em 0 0.4em; }
@@ -215,7 +216,7 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
   <aside class="side" id="side">
     <a class="brand" href="#overview">
       <span class="brand-name">Runtime File Importer</span>
-      <span class="brand-meta">Blueprint reference · UE 5.0 · Anchor Games</span>
+      <span class="brand-meta">Blueprint reference · UE 5 · Anchor Games</span>
     </a>
     <div class="search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
@@ -228,7 +229,7 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
     <div class="page" id="page"></div>
     <footer class="foot">
       <span>Copyright 2026 Anchor Games. All Rights Reserved.</span>
-      <span>Runtime File Importer 1.0 · Unreal Engine 5.0 · Windows 64-bit</span>
+      <span>Runtime File Importer · Unreal Engine 5 · Windows 64-bit</span>
     </footer>
   </main>
 </div>
@@ -363,7 +364,7 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
     var counts = { callable: 0, pure: 0, async: 0, event: 0 };
     NODES.forEach(function (n) { counts[n.kind]++; });
     var nStruct = M.types.filter(function (t) { return t.kind === 'struct'; }).length;
-    var h = '<header class="page-head"><span class="crumb">Anchor Games · Unreal Engine 5.0</span><h1>Runtime File Importer</h1>' +
+    var h = '<header class="page-head"><span class="crumb">Anchor Games · Unreal Engine 5</span><h1>Runtime File Importer</h1>' +
       '<p>Import, play, edit and export files while the game runs, from Blueprints: audio, 3D models, images and textures, video, text, data, documents, subtitles, ZIP archives and fonts. This reference lists every Blueprint node with its input and output pins.</p>' +
       '<div class="facts"><span><b>' + NODES.length + '</b> nodes</span><span><b>' + (counts.callable + counts.pure) + '</b> functions</span><span><b>' + counts.async + '</b> async nodes</span><span><b>' + counts.event + '</b> events</span><span><b>' + nStruct + '</b> structs</span><span><b>' + (M.types.length - nStruct) + '</b> enums</span></div></header>';
 
@@ -372,20 +373,20 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
     }).join('') + '<a class="card" href="#objects"><span class="n">' + M.objects.length + ' classes</span><b>Objects &amp; widgets</b><span>Variables and events of the plugin\'s objects and UMG widgets</span></a>' +
       '<a class="card" href="#types"><span class="n">' + M.types.length + ' types</span><b>Structs &amp; enums</b><span>Options, details and format types used by the pins</span></a></div>';
 
-    h += '<section class="block prose"><h2>Getting started</h2><ol>' +
+    h += '<section class="block"><div class="prose"><h2>Getting started</h2><ol>' +
       '<li>Enable the plugin: <b>Edit &gt; Plugins</b>, search for <b>Runtime File Importer</b>, tick it and restart the editor.</li>' +
       '<li>In any Blueprint, right-click and search for a node, for example <a href="#n-ImportAudioFromFile">Import Audio from File</a>. Most nodes belong to the <b>Runtime File Importer Subsystem</b>: connect a <b>Get Runtime File Importer Subsystem</b> node to their <b>Target</b> pin.</li>' +
       '<li>Check the result: nodes that can fail have an <b>Error Message</b> output (empty on success) and return <b>false</b> or <b>None</b>. Print the message while developing.</li>' +
       '<li>For large files and downloads, use the <b>(Async)</b> version of the node so the game keeps running while the work happens on another thread.</li></ol>' +
       '<h3>Example: import a sound and play it</h3><p><a href="#n-ImportAudioFromFileAsync">Import Audio From File (Async)</a> &rarr; <b>On Success</b> &rarr; engine node <b>Play Sound 2D</b> with the <b>Sound Wave</b> output. Connect <b>On Failure</b> to <b>Print String</b> with <b>Error Message</b>.</p>' +
-      '<h3>Example: let the player pick a model</h3><p><a href="#n-OpenFileDialogAsync">Open File Dialog (Async)</a> with <a href="#n-GetFileDialogFilter">Get File Dialog Filter</a> (File Type: Mesh) &rarr; <b>On Success</b> &rarr; <a href="#n-ImportMeshFromFileAsync">Import Mesh From File (Async)</a> with the first of <b>File Paths</b> &rarr; <b>On Success</b> &rarr; <a href="#n-SpawnRuntimeMeshActor">Spawn Runtime Mesh Actor</a>.</p></section>';
+      '<h3>Example: let the player pick a model</h3><p><a href="#n-OpenFileDialogAsync">Open File Dialog (Async)</a> with <a href="#n-GetFileDialogFilter">Get File Dialog Filter</a> (File Type: Mesh) &rarr; <b>On Success</b> &rarr; <a href="#n-ImportMeshFromFileAsync">Import Mesh From File (Async)</a> with the first of <b>File Paths</b> &rarr; <b>On Success</b> &rarr; <a href="#n-SpawnRuntimeMeshActor">Spawn Runtime Mesh Actor</a>.</p></div></section>';
 
-    h += '<section class="block prose"><h2>How the nodes work</h2>' +
+    h += '<section class="block"><div class="prose"><h2>How the nodes work</h2>' +
       '<h3>Functions</h3><p>Blue nodes run when executed and finish before the next node runs. Green (pure) nodes have no execution pins and only read values. A function that reads a large file or downloads something blocks the game until it is done, so use its async version in gameplay.</p>' +
       '<h3>Async nodes</h3><p>Async nodes (clock icon) continue from the plain output pin right away and do the work in the background. They then fire <b>On Success</b> or <b>On Failure</b>, and many fire <b>On Progress</b> with a <b>Percentage</b> from 0 to 100 while they work. All events of one node share the same data pins; pins that do not apply to an event are empty. The <b>Async Action</b> pin is the running operation: call the engine\'s <b>Cancel</b> node on it to stop it, after which no more events fire.</p>' +
       '<h3>Events</h3><p>The subsystem has events such as <a href="#n-OnAudioImported">On Audio Imported</a> and <a href="#n-OnMeshImportFailed">On Mesh Import Failed</a>. They fire for every import and export, whichever node started it, which makes them a good place for logging or a loading screen. Bind them with <b>Bind Event to ...</b> on the subsystem.</p>' +
       '<h3>Objects and variables</h3><p>Imported results are objects with Blueprint variables: a <a href="#obj-UTrackedSoundWaveProcedural">Runtime Sound Wave</a> has Volume, Pitch, Looping and Playback Time; a <a href="#obj-URuntimeVideo">Runtime Video</a> has Texture, Time, Rate and Volume. Each of these can also be read and changed with subsystem functions that take the object as an input.</p>' +
-      '<h3>Advanced and optional pins</h3><p>Pins marked <span class="tag">Advanced</span> are hidden until you expand the node with the arrow at its bottom. Pins marked <span class="tag">Optional</span> can stay unconnected; their default values are used. Options structs (for example <a href="#type-FRuntimeMeshImportOptions">Runtime Mesh Import Options</a>) can be split or made with a Make node.</p></section>';
+      '<h3>Advanced and optional pins</h3><p>Pins marked <span class="tag">Advanced</span> are hidden until you expand the node with the arrow at its bottom. Pins marked <span class="tag">Optional</span> can stay unconnected; their default values are used. Options structs (for example <a href="#type-FRuntimeMeshImportOptions">Runtime Mesh Import Options</a>) can be split or made with a Make node.</p></div></section>';
 
     var F = M.formats;
     function row(k, label) { return '<tr><td>' + label + '</td><td>' + esc(F[k]['import'].join(', ')) + '</td><td>' + esc(F[k]['export'].join(', ')) + '</td></tr>'; }
@@ -396,11 +397,11 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
       '<tr><td>Archives</td><td>ZIP (including ZIP64), GZip, Zlib, raw Deflate</td><td>ZIP, GZip, Zlib, raw Deflate</td></tr>' +
       '<tr><td>Fonts</td><td>TTF, OTF, TTC, OTC, WOFF</td><td>&ndash;</td></tr></tbody></table></div></section>';
 
-    h += '<section class="block prose"><h2>Platform notes</h2><ul>' +
+    h += '<section class="block"><div class="prose"><h2>Platform notes</h2><ul>' +
       '<li>Supported platform: Windows 64-bit (Win64), in the editor and in packaged games (Development and Shipping).</li>' +
       '<li>The Open, Save and Folder dialogs use the Windows file dialogs. Call <a href="#n-AreFileDialogsSupported">Are File Dialogs Supported</a> before showing a dialog in cross-platform code.</li>' +
       '<li>In packaged games, exporting an engine Static or Skeletal Mesh needs <b>Allow CPU Access</b> on the mesh. Meshes imported by the plugin always work.</li>' +
-      '<li>Downloads use HTTP or HTTPS. Google Docs, Sheets, Slides and Drive share links are turned into their download links automatically.</li></ul></section>';
+      '<li>Downloads use HTTP or HTTPS. Google Docs, Sheets, Slides and Drive share links are turned into their download links automatically.</li></ul></div></section>';
 
     var cats = [['exec', 'Execution'], ['bool', 'Boolean'], ['byte', 'Byte / enum'], ['int', 'Integer'], ['float', 'Float'], ['name', 'Name'], ['string', 'String'], ['text', 'Text'], ['object', 'Object reference'], ['struct', 'Struct'], ['vector', 'Vector'], ['rotator', 'Rotator'], ['transform', 'Transform'], ['wildcard', 'Any struct']];
     h += '<section class="block"><div class="prose"><h2>Pin colors</h2><p>The node drawings use the editor\'s pin colors. A grid icon is an array of that type.</p></div><div class="legend">' +
