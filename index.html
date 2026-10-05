@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Runtime File Importer Docs</title>
 <meta name="description" content="Blueprint node reference for the Runtime File Importer plugin for Unreal Engine 5, by Anchor Games.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,6 +86,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; line-heig
 .brand { display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: var(--ink); }
 .brand-name { font-family: var(--font-display); font-weight: 800; font-size: 1.28rem; font-stretch: 88%; letter-spacing: -0.01em; }
 .brand-meta { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+.pdf-btn { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 600; font-size: 0.95rem; line-height: 1.2; }
+.pdf-btn:hover { filter: brightness(1.08); }
+.pdf-btn svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pdf-btn small { display: block; font-weight: 400; font-size: 0.78rem; opacity: 0.85; }
 .search { position: relative; }
 .search input { width: 100%; font: inherit; font-size: 0.95rem; padding: 8px 10px 8px 32px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-2); color: var(--ink); }
 .search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 2; }
@@ -222,6 +230,10 @@ mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
       <input id="q" type="search" placeholder="Search nodes, pins, types" autocomplete="off" aria-label="Search the documentation">
     </div>
+    <a class="pdf-btn" href="RuntimeFileImporter_Documentation.pdf" download="RuntimeFileImporter_Documentation.pdf" type="application/pdf">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+      <span>Download PDF<small>Full documentation · 412 pages</small></span>
+    </a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navWrap">Browse sections</button>
     <div class="nav-wrap" id="navWrap"><nav class="nav" id="nav" aria-label="Sections"></nav></div>
   </aside>
